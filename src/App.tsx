@@ -72,7 +72,7 @@ function App() {
           sx={{ position: 'absolute', left: '50%', top: 0, marginTop: '10px' }}>
           <Fab aria-label="clients" onClick={() => setShowDrawer(true)}>
             <img
-              src="/src/assets/images/apple-touch-icon.png"
+              src="./assets/images/apple-touch-icon.png"
               alt="ABETT"
               style={{ width: '60px' }}
             />
