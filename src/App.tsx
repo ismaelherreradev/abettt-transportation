@@ -3,7 +3,7 @@ import { Grid, CssBaseline, Box, Fab, Drawer, Typography } from '@mui/material'
 
 import ClientForm from '@/components/client/ClientForm.component'
 import ClientModal from '@/components/client/ClientModal.component'
-import ClientsList from '@/components/client/ClientsList.components'
+import ClientsList from '@/components/client/ClientsList.component'
 
 import Map from '@/components/map/Map.component'
 
