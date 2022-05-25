@@ -22,9 +22,9 @@
       "@/utils": ["utils"],
       "@/features/*": ["features/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/components/*": ["components/*"],
+      "@/components/*": ["components/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/hooks/.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
