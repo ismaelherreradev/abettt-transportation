@@ -17,6 +17,8 @@ import { addClient } from '@/features/clients/clientSlice'
 import { IClient } from '@/features/clients/client.interface'
 import { Imodal } from '@/features/modals/modal.interface'
 
+import Logo from './assets/images/apple-touch-icon.png'
+
 function App() {
   const [showDrawer, setShowDrawer] = useState(false)
   const storedClients = useReadLocalStorage('clients')
@@ -63,11 +65,7 @@ function App() {
             gap: 3
           }}>
           <Fab aria-label="logo">
-            <img
-              src="/src/assets/images/apple-touch-icon.png"
-              alt="ABETT"
-              style={{ width: '60px' }}
-            />
+            <img src={Logo} alt="ABETT" style={{ width: '60px' }} />
           </Fab>
           <Fab
             aria-label="clients"
