@@ -8,14 +8,14 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField, Button, Typography } from '@mui/material'
 
-import useLocalStorage from '../../hooks/useLocalStorage'
-import { useAppSelector, useAppDispatch } from '../../hooks/useStore'
-import { addClient, generateID } from '../../features/clients/clientSlice'
-import { closeModal } from '../../features/modals/modalSlice'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import { useAppSelector, useAppDispatch } from '@/hooks/useStore'
+import { addClient, generateID } from '@/features/clients/clientSlice'
+import { closeModal } from '@/features/modals/modalSlice'
 
 import clientSchema from './ClientForm.schema'
 
-import { IClient } from '../../features/clients/client.interface'
+import { IClient } from '@/features/clients/client.interface'
 
 const ClientForm = () => {
   const [clients, setClient] = useLocalStorage('clients', [] as IClient[])

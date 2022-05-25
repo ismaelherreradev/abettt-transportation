@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { parseJSON } from '../utils'
+import { parseJSON } from '@/utils'
 
 type Value<T> = T | null
 

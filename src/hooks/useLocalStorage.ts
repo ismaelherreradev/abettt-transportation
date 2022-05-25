@@ -7,7 +7,7 @@ import {
   useState
 } from 'react'
 
-import { parseJSON } from '../utils'
+import { parseJSON } from '@/utils'
 
 type SetValue<T> = Dispatch<SetStateAction<T>>
 

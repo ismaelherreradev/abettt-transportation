@@ -1,4 +1,4 @@
-import { validLatAndLongRegex } from '../../utils'
+import { validLatAndLongRegex } from '@/utils'
 
 import * as yup from 'yup'
 

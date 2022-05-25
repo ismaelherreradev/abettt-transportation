@@ -1,33 +1,21 @@
-import React, { FunctionComponent, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 
 import RoutingMachine from './RoutingMachine.component'
 import { Ilatlng } from './Map.interface'
 
-import { useAppSelector, useAppDispatch } from '../../hooks/useStore'
-import { addRoute } from '../../features/clients/clientSlice'
-import { IClient } from '../../features/clients/client.interface'
-import useLocalStorage from '../../hooks/useLocalStorage'
+import { useAppSelector } from '@/hooks/useStore'
+import { IClient } from '@/features/clients/client.interface'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 const LocationMarker: FunctionComponent<{
   createPointer: (params: any) => any
-  isSeletedUser: number | string
 }> = (props) => {
   const [, setClient] = useLocalStorage('clients', [] as IClient[])
   const AllClients = useAppSelector((state) => state.clients)
-  const dispatch = useAppDispatch()
 
   useMapEvents({
-    async click(e) {
-      if (props.isSeletedUser) {
-        await dispatch(
-          //  @ts-ignore
-          addRoute({ id: props.isSeletedUser, routes: { ...e?.latlng } })
-        )
-
-        return
-      }
-
+    click(e) {
       props.createPointer({ ...e?.latlng })
     }
   })
@@ -40,14 +28,8 @@ const LocationMarker: FunctionComponent<{
 }
 
 const Map: FunctionComponent<{ openModal: () => any }> = (props) => {
-  const seletedClient = useAppSelector((state) => state.currentClient)
-  const client = useAppSelector((state) => state.clients)
-  /* @ts-ignore */
-  const currentClient = client.find((client) => client.id === seletedClient.id)
-
-  const currentRoute = currentClient || seletedClient
-
-  const userRoutes: Ilatlng[] = [...currentRoute!.routes]
+  const clients = useAppSelector((state) => state.clients)
+  const userRoutes: Ilatlng[] = clients.flatMap((r) => r.routes)
 
   return (
     <MapContainer
@@ -58,10 +40,7 @@ const Map: FunctionComponent<{ openModal: () => any }> = (props) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationMarker
-        createPointer={props.openModal}
-        isSeletedUser={currentClient?.id!}
-      />
+      <LocationMarker createPointer={props.openModal} />
       <RoutingMachine
         //  @ts-ignore
         routes={userRoutes}

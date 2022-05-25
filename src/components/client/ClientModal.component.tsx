@@ -1,8 +1,8 @@
 import React, { ReactNode, FunctionComponent } from 'react'
 import { Modal, Backdrop, Fade, Box } from '@mui/material'
 
-import { useAppDispatch } from '../../hooks/useStore'
-import { closeModal } from '../../features/modals/modalSlice'
+import { useAppDispatch } from '@/hooks/useStore'
+import { closeModal } from '@/features/modals/modalSlice'
 
 const style = {
   position: 'absolute' as 'absolute',

@@ -1,4 +1,4 @@
-import { Ilatlng } from '../../components/map/Map.interface'
+import { Ilatlng } from '@/components/map/Map.interface'
 
 export interface IClient {
   id: number | string

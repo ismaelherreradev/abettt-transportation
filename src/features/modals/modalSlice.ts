@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Imodal } from '../../features/modals/modal.interface'
+import { Imodal } from '@/features/modals/modal.interface'
 
 const initialState: Imodal = {
   open: false,
@@ -15,22 +15,18 @@ export const clientsSlice = createSlice({
   name: 'clients',
   initialState,
   reducers: {
-    openModal: (state: Imodal) => {
+    openModalWithParams: (state: Imodal, actions: PayloadAction<Imodal>) => {
       state.open = true
+      state.openWhitParams = true
+      state.params = { ...state.params, ...actions.payload }
     },
     closeModal: (state: Imodal) => {
       state.open = false
       state.openWhitParams = false
       state.params = { name: '', lat: '', lng: '' }
-    },
-    openModalWithParams: (state: Imodal, actions: PayloadAction<Imodal>) => {
-      state.open = true
-      state.openWhitParams = true
-      state.params = { ...state.params, ...actions.payload }
     }
   }
 })
 
-export const { openModal, closeModal, openModalWithParams } =
-  clientsSlice.actions
+export const { openModalWithParams, closeModal } = clientsSlice.actions
 export default clientsSlice.reducer

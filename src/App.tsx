@@ -1,34 +1,27 @@
 import { useState } from 'react'
-import { Grid, CssBaseline, Box, Fab, Drawer } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
+import { Grid, CssBaseline, Box, Fab, Drawer, Typography } from '@mui/material'
 
-import ClientForm from './components/client/ClientForm.component'
-import ClientModal from './components/client/ClientModal.component'
-import ClientsList from './components/client/ClientsList.components'
+import ClientForm from '@/components/client/ClientForm.component'
+import ClientModal from '@/components/client/ClientModal.component'
+import ClientsList from '@/components/client/ClientsList.components'
 
-import Map from './components/map/Map.component'
+import Map from '@/components/map/Map.component'
 
-import { useAppSelector, useAppDispatch } from './hooks/useStore'
-import useReadLocalStorage from './hooks/useReadLocalStorage'
-import useEffectOnce from './hooks/useEffectOnce'
+import { useAppSelector, useAppDispatch } from '@/hooks/useStore'
+import useReadLocalStorage from '@/hooks/useReadLocalStorage'
+import useEffectOnce from '@/hooks/useEffectOnce'
 
-import { openModalWithParams, openModal } from './features/modals/modalSlice'
-import { addClient } from './features/clients/clientSlice'
-import {
-  setCurrentClient,
-  resetCurrentClient
-} from './features/clients/currentClientSlice'
+import { openModalWithParams } from '@/features/modals/modalSlice'
+import { addClient } from '@/features/clients/clientSlice'
 
-import { IClient } from './features/clients/client.interface'
-import { Imodal } from './features/modals/modal.interface'
+import { IClient } from '@/features/clients/client.interface'
+import { Imodal } from '@/features/modals/modal.interface'
 
 function App() {
   const [showDrawer, setShowDrawer] = useState(false)
   const storedClients = useReadLocalStorage('clients')
-  const storedSeletedClient = useReadLocalStorage('seletedClient')
   const open = useAppSelector((state) => state.clientModal.open)
   const clients = useAppSelector((state) => state.clients)
-  const currentUser = useAppSelector((state) => state.currentClient.name)
 
   const dispatch = useAppDispatch()
 
@@ -36,19 +29,10 @@ function App() {
     if (storedClients) {
       dispatch(addClient(storedClients as IClient[]))
     }
-
-    if (storedSeletedClient) {
-      dispatch(setCurrentClient(storedSeletedClient as IClient))
-    }
   })
 
   const createPointer = (params: Imodal) => {
     return dispatch(openModalWithParams(params))
-  }
-
-  const createClient = () => {
-    dispatch(openModal())
-    dispatch(resetCurrentClient())
   }
 
   return (
@@ -69,42 +53,27 @@ function App() {
         {/* @ts-ignore */}
         <Map openModal={createPointer} />
         <Box
-          sx={{ position: 'absolute', left: '50%', top: 0, marginTop: '10px' }}>
-          <Fab aria-label="clients" onClick={() => setShowDrawer(true)}>
+          sx={{
+            display: 'flex',
+            position: 'absolute',
+            alignItems: 'center',
+            left: '0',
+            bottom: 0,
+            margin: '10px',
+            gap: 3
+          }}>
+          <Fab aria-label="logo">
             <img
               src="/src/assets/images/apple-touch-icon.png"
               alt="ABETT"
               style={{ width: '60px' }}
             />
           </Fab>
-        </Box>
-        {currentUser && (
-          <Box
-            sx={{
-              position: 'absolute',
-              left: '50%',
-              bottom: 10,
-              marginBottom: '10px'
-            }}>
-            <Fab
-              variant="extended"
-              size="small"
-              color="primary"
-              aria-label="current user">
-              {currentUser}
-            </Fab>
-          </Box>
-        )}
-        <Box
-          sx={{
-            position: 'absolute',
-            right: '0',
-            bottom: 10,
-            marginRight: '10px',
-            marginBottom: '10px'
-          }}>
-          <Fab color="primary" aria-label="add" onClick={() => createClient()}>
-            <AddIcon />
+          <Fab
+            aria-label="clients"
+            variant="extended"
+            onClick={() => setShowDrawer(true)}>
+            <Typography>Open clients list</Typography>
           </Fab>
         </Box>
       </Grid>
